@@ -40,11 +40,18 @@ public class BankAccount {
 
 
     public static boolean isEmailValid(String email){
-        if (email.indexOf('@') == -1){
+        
+        var atSymbol = email.indexOf("@");
+        var period = email.indexOf(".");
+        
+        if( email.length() <= 0 || atSymbol == -1|| period == -2 ||period < atSymbol )
+           {
             return false;
         }
-        else {
+        else{
             return true;
         }
+    
     }
+
 }
