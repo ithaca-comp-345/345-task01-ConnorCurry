@@ -44,7 +44,7 @@ public class BankAccount {
         var atSymbol = email.indexOf("@");
         var period = email.indexOf(".");
         
-        if( email.length() <= 0 || atSymbol == -1|| period == -2 ||period < atSymbol )
+        if( email.length() <= 0 || atSymbol == -1|| period == -2 ||period < atSymbol || atSymbol == 0 || period == atSymbol + 1 || period == (email.length() -1 ) )
            {
             return false;
         }

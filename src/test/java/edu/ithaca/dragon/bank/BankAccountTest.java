@@ -33,10 +33,10 @@ class BankAccountTest {
 
         //I didn't get these to work yet. 
 
-        //assertFalse(BankAccount.isEmailValid("@b.com"));
-        //assertFalse(BankAccount.isEmailValid("a@.com"));
-        //assertFalse(BankAccount.isEmailValid("a@b."));
-        //assertFalse(BankAccount.isEmailValid("@.com"));
+        assertFalse(BankAccount.isEmailValid("@b.com"));
+        assertFalse(BankAccount.isEmailValid("a@.com"));
+        assertFalse(BankAccount.isEmailValid("a@b."));
+        assertFalse(BankAccount.isEmailValid("@.com"));
     }
 
     @Test
