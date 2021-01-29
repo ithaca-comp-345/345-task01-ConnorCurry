@@ -22,8 +22,8 @@ class BankAccountTest {
         assertThrows(InsufficientFundsException.class, () -> bankAccount.withdraw(300));
 
         // New tests, negative input and 0 input
-        // assertThrows(InsufficientFundsException.class, () -> bankAccount.withdraw(-200));
-        // assertThrows(InsufficientFundsException.class, () -> bankAccount.withdraw(0));
+        // assertThrows(IllegalArgumentException.class, () -> bankAccount.withdraw(-200));
+        // assertThrows(IllegalArgumentException.class, () -> bankAccount.withdraw(0));
         
         bankAccount.withdraw(1);
         assertEquals(99, bankAccount.getBalance());
