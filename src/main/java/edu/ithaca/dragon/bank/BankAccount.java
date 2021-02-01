@@ -31,6 +31,10 @@ public class BankAccount {
      * if amount is negative or smaller than balance, throw InsufficientFundsException
      */
     public void withdraw (double amount) throws InsufficientFundsException{
+        if (amount == 0 || amount <= -1 ) {
+            throw new IllegalArgumentException("Invalid withdrawl amount");
+        }
+
         if (amount <= balance){
             balance -= amount;
         }
@@ -38,9 +42,11 @@ public class BankAccount {
             throw new InsufficientFundsException("Not enough money");
         }
 
-        if (amount == 0 || amount <= -1 ) {
-            throw new IllegalArgumentException("Invalid withdrawl amount");
-        }
+        // This block should go above the first if statement
+        // if (amount == 0 || amount <= -1 ) {
+        //     throw new IllegalArgumentException("Invalid withdrawl amount");
+        // }
+        
     }
 
 
