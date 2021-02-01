@@ -38,7 +38,7 @@ public class BankAccount {
             throw new InsufficientFundsException("Not enough money");
         }
 
-        if (amount == 0 && amount <= -1 ) {
+        if (amount == 0 || amount <= -1 ) {
             throw new IllegalArgumentException("Invalid withdrawl amount");
         }
     }
