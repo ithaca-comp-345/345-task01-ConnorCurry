@@ -23,7 +23,10 @@ public class BankAccount {
     * @returns true when amount has no more than two decimal places and is not negative
     */
     public static boolean isAmountValid(double amount) {
-        return false;
+        if(amount <= 0 || ((amount * 100) % 1) != 0) { // checks for 0 or negative amounts, then checks decimal places
+            return false;
+        }
+        else return true;
     }
 
     public double getBalance(){

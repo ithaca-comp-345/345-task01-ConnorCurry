@@ -30,7 +30,7 @@ class BankAccountTest {
         assertFalse(BankAccount.isAmountValid(0)); // false for zero
         assertTrue(BankAccount.isAmountValid(0.1)); // true for zero with one decimal
         assertTrue(BankAccount.isAmountValid(0.11)); // true for zero with two decimals
-        assertTrue(BankAccount.isAmountValid(0.111)); // true for zero with three decimals
+        assertFalse(BankAccount.isAmountValid(0.111)); // false for zero with three decimals
     }
 
     @Test
