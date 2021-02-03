@@ -34,6 +34,57 @@ class BankAccountTest {
     }
 
     @Test
+    void depositTest() {
+        BankAccount account = new BankAccount("asd@asdf.com", 200);
+        account.deposit(100);
+        assertEquals(300, account.getBalance()); // basic deposit
+
+        account.deposit(100.11);
+        assertEquals(400.11, account.getBalance()); // two decimal places
+
+        account.deposit(100.1);
+        assertEquals(500.21, account.getBalance()); // one decimal place
+
+        account.deposit(0.1);
+        assertEquals(500.31, account.getBalance());
+
+        assertThrows(IllegalArgumentException.class, () -> account.deposit(-199)); // negative should throw exception
+        assertThrows(IllegalArgumentException.class, () -> account.deposit(199.111)); // three decimal places
+        assertThrows(IllegalArgumentException.class, () -> account.deposit(0)); // zero
+        assertThrows(IllegalArgumentException.class, () -> account.deposit(0.111));
+    }
+
+    @Test
+    void transferTest() {
+        BankAccount account1 = new BankAccount("asd@asd.com", 1000);
+        BankAccount account2 = new BankAccount("asds@asd.com", 5000);
+        BankAccount.transfer(account2, account1, 1000); // generic transfer test
+        assertEquals(2000, account1.getBalance());
+        assertEquals(4000, account2.getBalance());
+
+        BankAccount.transfer(account2, account1, 1000.11); // transfer with two decimal places
+        assertEquals(3000.11, account1.getBalance());
+        assertEquals(2999.89, account2.getBalance());
+
+        BankAccount.transfer(account1, account2, 1000.1); // transfer with one decimal place
+        assertEquals(2000.01, account1.getBalance());
+        assertEquals(3999.99, account2.getBalance());
+
+        BankAccount.transfer(account1, account2, .01); // boundary case transfer 1
+        assertEquals(2000, account1.getBalance());
+        assertEquals(4000, account2.getBalance());
+
+        assertThrows(IllegalArgumentException.class, () -> BankAccount.transfer(account1, account2, -100)); // negative
+        assertThrows(IllegalArgumentException.class, () -> BankAccount.transfer(account1, account2, 100.111)); // three decimal places
+        assertThrows(IllegalArgumentException.class, () -> BankAccount.transfer(account1, account2, 0)); // 0
+        assertThrows(IllegalArgumentException.class, () -> BankAccount.transfer(account1, account2, 0.111)); //boundary case three decimal places
+
+
+
+        
+    }
+
+    @Test
     void withdrawTest() throws InsufficientFundsException{
         BankAccount bankAccount = new BankAccount("a@b.com", 200);
         bankAccount.withdraw(100);
