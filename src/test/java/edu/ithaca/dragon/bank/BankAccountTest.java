@@ -75,13 +75,17 @@ class BankAccountTest {
         assertEquals(4000.11, account2.getBalance());
 
         assertThrows(IllegalArgumentException.class, () -> BankAccount.transfer(account1, account2, -100)); // negative
+        assertEquals(1999.89, account1.getBalance());
+        assertEquals(4000.11, account2.getBalance());
         assertThrows(IllegalArgumentException.class, () -> BankAccount.transfer(account1, account2, 100.111)); // three decimal places
+        assertEquals(1999.89, account1.getBalance());
+        assertEquals(4000.11, account2.getBalance());
         assertThrows(IllegalArgumentException.class, () -> BankAccount.transfer(account1, account2, 0)); // 0
+        assertEquals(1999.89, account1.getBalance());
+        assertEquals(4000.11, account2.getBalance());
         assertThrows(IllegalArgumentException.class, () -> BankAccount.transfer(account1, account2, 0.111)); //boundary case three decimal places
-
-
-
-        
+        assertEquals(1999.89, account1.getBalance());
+        assertEquals(4000.11, account2.getBalance());
     }
 
     @Test
