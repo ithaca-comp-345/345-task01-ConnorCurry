@@ -26,7 +26,10 @@ public class BankAccount {
      * @param amount amount to deposit
      */
     public void deposit(double amount) {
-
+        if (!isAmountValid(amount)) {
+            throw new IllegalArgumentException();
+        }
+        else this.balance += amount;
     }
 
     /**
@@ -36,7 +39,12 @@ public class BankAccount {
      * @param amount amount of money to transfer
      */
     public static void transfer(BankAccount accountFrom, BankAccount accountTo, double amount) {
-        
+        try{
+            accountFrom.withdraw(amount);
+            accountTo.deposit(amount);
+        } catch(Exception e) {
+            throw new IllegalArgumentException();
+        }
     }
 
     /*

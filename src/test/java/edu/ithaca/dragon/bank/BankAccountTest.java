@@ -42,11 +42,11 @@ class BankAccountTest {
         account.deposit(100.11);
         assertEquals(400.11, account.getBalance()); // two decimal places
 
-        account.deposit(100.1);
-        assertEquals(500.21, account.getBalance()); // one decimal place
+        account.deposit(100.2);
+        assertEquals(500.31, account.getBalance()); // one decimal place
 
         account.deposit(0.1);
-        assertEquals(500.31, account.getBalance());
+        assertEquals(500.41, account.getBalance());
 
         assertThrows(IllegalArgumentException.class, () -> account.deposit(-199)); // negative should throw exception
         assertThrows(IllegalArgumentException.class, () -> account.deposit(199.111)); // three decimal places
@@ -66,13 +66,13 @@ class BankAccountTest {
         assertEquals(3000.11, account1.getBalance());
         assertEquals(2999.89, account2.getBalance());
 
-        BankAccount.transfer(account1, account2, 1000.1); // transfer with one decimal place
-        assertEquals(2000.01, account1.getBalance());
-        assertEquals(3999.99, account2.getBalance());
+        BankAccount.transfer(account1, account2, 1000.2); // transfer with one decimal place
+        assertEquals(1999.91, account1.getBalance());
+        assertEquals(4000.09, account2.getBalance());
 
-        BankAccount.transfer(account1, account2, .01); // boundary case transfer 1
-        assertEquals(2000, account1.getBalance());
-        assertEquals(4000, account2.getBalance());
+        BankAccount.transfer(account1, account2, 0.02); // boundary case transfer 1
+        assertEquals(1999.89, account1.getBalance());
+        assertEquals(4000.11, account2.getBalance());
 
         assertThrows(IllegalArgumentException.class, () -> BankAccount.transfer(account1, account2, -100)); // negative
         assertThrows(IllegalArgumentException.class, () -> BankAccount.transfer(account1, account2, 100.111)); // three decimal places
