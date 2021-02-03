@@ -18,6 +18,14 @@ public class BankAccount {
         }
     }
 
+    /*
+    * @post checks if amount given is valid
+    * @returns true when amount has no more than two decimal places and is not negative
+    */
+    public static boolean isAmountValid(double amount) {
+        return false;
+    }
+
     public double getBalance(){
         return balance;
     }
@@ -31,10 +39,9 @@ public class BankAccount {
      * if amount is negative or smaller than balance, throw InsufficientFundsException
      */
     public void withdraw (double amount) throws InsufficientFundsException{
-        if (amount == 0 || amount <= -1 ) {
+        if (amount <= 0) {
             throw new IllegalArgumentException("Invalid withdrawl amount");
         }
-
         if (amount <= balance){
             balance -= amount;
         }
@@ -46,18 +53,53 @@ public class BankAccount {
 
 
     public static boolean isEmailValid(String email){
-        
-        var atSymbol = email.indexOf("@");
-        var period = email.indexOf(".");
-        
-        if( email.length() <= 0 || atSymbol == -1|| period == -2 ||period < atSymbol || atSymbol == 0 || period == atSymbol + 1 || period == (email.length() -1 ) )
-           {
+        email.toLowerCase();
+        if (email.indexOf('@') == -1 || email.indexOf('.') == -1 || email == ""){
             return false;
         }
-        else{
+        else {
+            //Divide the address into recipient, domainName, suffix
+            int atIndex = email.indexOf('@');
+            String recipient = "";
+            for (int i = 0; i < atIndex; i++) {
+                recipient = recipient + email.charAt(i);
+            }
+
+            int dotIndex = email.indexOf('.', atIndex + 1);
+            String domainName = "";
+            for (int j = atIndex + 1; j < dotIndex; j++) {
+                domainName = domainName + email.charAt(j);
+            }
+
+            String suffix = "";
+            for (int l = dotIndex + 1; l < email.length(); l++) {
+                suffix = suffix + email.charAt(l);
+            }
+
+            //Check that recipient is not empty
+            if (recipient.length() == 0) return false;
+            //First and last characters of recipient must be a letter
+            //Tests and implementation do not account for number at beginning or end
+            if (recipient.charAt(0) > 122 || recipient.charAt(0) < 97) {
+                return false;
+            }
+            if (recipient.charAt(recipient.length() - 1)> 122 || recipient.charAt(recipient.length() - 1) < 97) {
+                return false;
+            }
+
+            //Domain name only has letters or dashes in it
+            for (int n = 0; n < domainName.length(); n++) {
+                if ((domainName.charAt(n) < 97 || domainName.charAt(n) > 122) && domainName.charAt(n) != '-' ) {
+                    return false;
+                }
+            }
+            //Check that domainName is not empty
+            if (domainName.length() == 0) return false;
+
+            //Check that suffix is not empty
+            if (suffix.length() == 0) return false;
+
             return true;
         }
-    
     }
-
 }

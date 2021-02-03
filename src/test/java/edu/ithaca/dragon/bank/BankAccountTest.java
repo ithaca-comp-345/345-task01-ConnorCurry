@@ -21,6 +21,19 @@ class BankAccountTest {
     }
 
     @Test
+    void isAmountValidTest() throws IllegalArgumentException {
+        assertTrue(BankAccount.isAmountValid(21.11)); // true with two decimals
+        assertTrue(BankAccount.isAmountValid(21.1)); // true with one decimal
+        assertTrue(BankAccount.isAmountValid(21)); // true with no decimals
+        assertFalse(BankAccount.isAmountValid(-21.11)); // false with a negative
+        assertFalse(BankAccount.isAmountValid(21.111)); // false with three decimal places
+        assertFalse(BankAccount.isAmountValid(0)); // false for zero
+        assertTrue(BankAccount.isAmountValid(0.1)); // true for zero with one decimal
+        assertTrue(BankAccount.isAmountValid(0.11)); // true for zero with two decimals
+        assertTrue(BankAccount.isAmountValid(0.111)); // true for zero with three decimals
+    }
+
+    @Test
     void withdrawTest() throws InsufficientFundsException{
         BankAccount bankAccount = new BankAccount("a@b.com", 200);
         bankAccount.withdraw(100);
